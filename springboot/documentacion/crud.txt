@@ -1,0 +1,6 @@
+Configuración
+pom.xml 
+
+resource/application.properties
+//para llevar a acabo configuraciones
+

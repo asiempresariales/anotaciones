@@ -1,0 +1,69 @@
+Anotaciones
+
+Beans - los beans son componentes que son manejados por springboot
+
+@SpringBootApplication
+        // Esta anotación incluye la autoconfiguracion de nuestras dependencias, todo lo que esta en el pom
+        //escanea los componentes y los registra para posteriormente pemitir la injeccion de dependencias
+
+
+Controlador
+        maneja las peticiones del request
+        un controlador es una clase comun y corriente que maneja los metodos del request para los usuarios que se conocen como metodos handler
+        handler viene de manejar peticion de usuarios con los parametros que envia
+        procesa el request y devuelve un response  renderiza un html una vista o regresa un json
+
+@Controller         
+        // es un estereotipo  indica que que un controlador de spring
+        // es la especializacion de un componente
+        // los componentes son objetos que se guardan en un contenedor y spring los maneja
+        //sirve para trabajar con vistas html del lado del servidor thymeleaf resource/templates 
+
+@ResponseBody
+        //para indicar que la respuesta sera un json
+
+@RequestMapping(path="/details", method = RequestMethod.GET)
+
+
+Abajo atajos para notener que escribir la sentencia completa
+
+@GetMapping("/details")
+        //es para cualquier peticion url 
+
+
+@PostMapping
+        //informacion o datos en un formulario que vienen en el cuerpo
+
+
+@PutMapping
+        // para modificar informacion existente
+
+@DeleteMapping
+        //para borrar
+
+
+@RestController
+        //automaticamente convierte el reponse del  metodo handler en REST
+        //combina dos anotaciones @Controller   y @ ResponseBody
+        //response body por defecto lo que realiza es devolver el contenido como un json gracias a la api jackson
+
+@RequestMapping("/api")
+        //para colocar una ruta base por encima del controlador
+
+
+@Service
+
+@Entity
+
+@Respository
+
+@Component 
+
+@ModelAttribute("users")  Para pasar datos a la vista, el atributo users queda disponible globalmente para ser consumido
+public List<User> userModel{
+    return Arrays.asList(
+        new User("nombre","Apellido"),
+        new User("nombre","Apellido"),
+        new User("nombre","Apellido"),
+    );
+}

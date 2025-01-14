@@ -1,0 +1,35 @@
+Estructuras de Datos
+
+
+🔢 1. Array:
+Una colección de elementos, accesibles por su índice. Ideal para datos secuenciales.
+
+📤 2. Queue:
+Una estructura FIFO (First In, First Out), perfecta para tareas en cola como procesadores de impresoras.
+
+🌳 3. Tree:
+Estructura jerárquica que organiza datos de forma eficiente, útil para sistemas de archivos y bases de datos.
+
+🧮 4. Matrix:
+Tablas bidimensionales de datos, utilizadas en cálculos matemáticos, gráficos y sistemas de juegos.
+
+🔗 5. Graph:
+Conjunto de nodos conectados, fundamental para modelar redes sociales, rutas y relaciones.
+
+📚 6. Linked List:
+Una colección de nodos enlazados que facilita la inserción y eliminación dinámica de elementos.
+
+📈 7. Max Heap:
+Un árbol binario que siempre mantiene el valor máximo en la raíz. Ideal para sistemas de prioridades.
+
+🌀 8. Stack:
+Una estructura LIFO (Last In, First Out), útil para realizar seguimiento de estados como en recursiones.
+
+📖 9. Trie:
+Un árbol especializado para buscar cadenas de texto, como en autocompletados de motores de búsqueda.
+
+🗂️ 10. HashMap:
+Una estructura clave-valor rápida y eficiente, perfecta para búsquedas rápidas.
+
+🔐 11. HashSet:
+Similar a un HashMap, pero diseñado para almacenar solo valores únicos.
