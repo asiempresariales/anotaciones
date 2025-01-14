@@ -1,0 +1,6 @@
+@Input() 
+Para pasar un valor del padre al hijo entre componentes
+
+
+@Output()
+Para pasar un valor de hijo al padre entre componentes

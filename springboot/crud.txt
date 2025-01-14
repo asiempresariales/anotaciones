@@ -1,0 +1,6 @@
+
+@RestController
+@Entity
+@Respository
+@Service
+@Component 
