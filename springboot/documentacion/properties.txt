@@ -1,0 +1,49 @@
+
+
+
+
+server.port = 80888
+
+
+
+
+config.code=232323
+config.username=jonas
+config.listOfvalues=uno,dos,tres
+
+
+//para llamar los valores desde algùn beans
+@Value("${config.username}")
+private String username;
+
+
+@Value("${config.listOfvalues}")£
+private String[] listOfvalues;
+
+
+
+Nuevo Archivo de porperties desde resource
+
+values.properties
+para configurar desde la clase principal es debajo del @SpringBootApplication
+@PropertySources({
+    "classpath:values.properties",
+    "classpath:values2.properties",
+    })
+
+
+
+Desde una clase de configuracion dentro del package base
+
+@Configuration
+@PropertySources({
+    @PropertySource(value="classpath:values.properties", encoding="UTF-8"),
+    "classpath:values2.properties",
+    })
+public class ValuesConfig{
+
+}
+
+//# El gato quiere decir que es un lenguaje de expresion
+//Lenguaje de expresion de spring
+@Value("#{'${config.listado}'.split(',')}")

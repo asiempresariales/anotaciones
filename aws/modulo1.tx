@@ -1,0 +1,217 @@
+
+******************************************************************************************
+Introduccion 
+******************************************************************************************
+
+modulo 1 Informacion basica de aws y los de los servicios que ofrecen a las empresas 
+
+
+Servicios 
+Computacion
+Amacenamiento
+segutidad 
+
+Blockchain
+Machine lerning 
+IA
+
+
+Modelo basico de computacion en la nube 
+Cliente Servidor 
+Cliente hace la solicitud y el servidor regresa una respuesta de acurdo a los permisos
+
+Amazon EC2 - Es un tipo de servidor virtual 
+Amazon Elastic Compute Cloud
+
+Solo se paga por lo que se usa (on demand) 
+
+Que es la computacion en la nube 
+Es la entrega bajo demande de recursos de TI através de internet con precios de pago por
+uso 
+
+beneficios de amazon EC2
+
+Tipos de instancia de EC2
+
+Duferencia entre las distintas opciones de fcturacion de EC2
+
+Resumen de beneficios
+
+Ejemplo  de los usos de Elastic Load Balancing
+
+Resumen diferencias entre Amazon Simple Notification Service (Amazon SNS) y 
+Amazon Simple Queue Service (Amazon SQS)
+
+Resumen opciones de computacion adicionales de aws
+
+
+******************************************************************************************
+Amazon EC2   (elastic compute cloud)
+******************************************************************************************
+
+(Amazon ya cuenta con centros de datos creados
+YA cuentan con proteccion
+Ya ha comprado toda la infraestructura
+Ya ha llevado a cabo la instalación de lo necesario
+Los servidores ya estan conectado y listos para su uso)
+
+
+Se crean maquinas virtuales de EC2 que corren sobre infraestructura física 
+Se solicitan las instancias de EC2 necesarias y solo se paga por el uso
+La infraestructura fisica es compartida 
+
+Un hipervisor es el responsable de
+compartir los espcios fisicos subyacentes
+a estoos se le llama tenencia munltiple 
+Tenencia multiple: es el uso compartido de hardware suvyacente entre máquinas virtuales
+
+La tenencia multiple Aisla las instacias para estar protegidas 
+esto debido a que comparten recucursos fisicos las instancias 
+Una instancia no sabe si es compartida con otra o no 
+protegidas individualmente y separadas entre si 
+
+Beneficios  proporciona la felcibilidad y control de la configuracion 
+se puede seleccionar el SO 
+Se tiene control total sobre las configuraciones de esa instancia
+Se controlan las aplicaciones empresariales internas
+Aplicaciones Web
+Bases de datos 
+Software de terceros 
+
+Espacio Vertical 
+Se puede modificar el tamaño agregando o quitando espacio 
+
+Permite la configuración de la red
+
+Tipos de instancia de EC2
+**********************************************************
+Caada tipo de instancia se agrupa en una familia de instancias 
+para realizar cierto tipo de tareas
+
+DE USO GENERAL
+Esta instancia proporcionan buen equilibrio de recursos de computacion, 
+de memoria y de redes
+
+Son para diverdas cargas de trabajo como: 
+Servicios Web 
+repositorio de codigo 
+
+OPTIMIZADAS PARA LA COMPUTACION(meseros)
+
+Son utilizadas para tereas de computacion intensivas
+Servicios de videojuegos
+Computacion de alto rendimiento
+Modelado cientifico 
+
+
+OPTIMIZADAS PARA LA MEMORIA(cajero)
+Teraeas intensivas de memoria
+
+
+DE COMPUTACIÓN ACELERADA(barista)
+
+Ideales para cálculos con números de comoa flotante
+procesamientos de gráficos
+coincidencia de patrones
+
+Utilizan aceleradores de grafico 
+
+OPTIMIZADAS PARA EL ALMACENAMIENTO 
+Cargas de trabajo de alta exigencia para datos almacenados
+localmente 
+
+
+Precio 
+**********************************************************
+Bajo demanda (on demand) solo se paga por el tiempo de ejecucion de las instancias 
+No requiere contratos ni tiempos forzoso 
+
+Savings plans
+este modelo ofrece precios bajos por conprometerse a
+utilizar el servicio de forma constante  (1 0 3 años )
+Modelo de precios flexible 
+ahorro hasta del 70%
+
+Instancias reservada 
+ideales para cargas de trabajo estable o predecibles 
+ahorro en contratacion de (1 o 3 años)
+
+Instacias de spot
+Permite solicitar capacidad de computacion extra   
+
+aws puede recuperar la instancia cuando lo necesite y solo avisa que va ser retirado
+
+
+Host dedicados 
+Se suelen usar para cumplir con ciertos requisitos de conformidad 
+Y la tenencia de ese alojamiento no se comparte con nadie 
+
+
+
+
+
+******************************************************************************************
+Amazon EC2   (elastic compute cloud)
+******************************************************************************************
+
+
+
+******************************************************************************************
+Amazon EC2   (elastic compute cloud)
+******************************************************************************************
+
+
+
+
+******************************************************************************************
+Amazon EC2   (elastic compute cloud)
+******************************************************************************************
+
+
+
+******************************************************************************************
+Amazon EC2   (elastic compute cloud)
+******************************************************************************************
+
+
+
+
+******************************************************************************************
+Amazon EC2   (elastic compute cloud)
+******************************************************************************************
+
+
+
+******************************************************************************************
+Amazon EC2   (elastic compute cloud)
+******************************************************************************************
+
+
+
+******************************************************************************************
+Amazon EC2   (elastic compute cloud)
+******************************************************************************************
+
+
+
+******************************************************************************************
+Amazon EC2   (elastic compute cloud)
+******************************************************************************************
+
+
+
+******************************************************************************************
+Amazon EC2   (elastic compute cloud)
+******************************************************************************************
+
+
+
+******************************************************************************************
+Amazon EC2   (elastic compute cloud)
+******************************************************************************************
+
+
+******************************************************************************************
+Amazon EC2   (elastic compute cloud)
+******************************************************************************************
+

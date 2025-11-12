@@ -1,4 +1,5 @@
-Anotaciones
+Anotaciones - Cualquier beans anotado con @Component o derivados bajo 
+el package base serán instanciados y manejados por el contenedor DI de Spring(Auto-scanning)
 
 Beans - los beans son componentes que son manejados por springboot
 
@@ -8,10 +9,11 @@ Beans - los beans son componentes que son manejados por springboot
 
 
 Controlador
-        maneja las peticiones del request
-        un controlador es una clase comun y corriente que maneja los metodos del request para los usuarios que se conocen como metodos handler
-        handler viene de manejar peticion de usuarios con los parametros que envia
-        procesa el request y devuelve un response  renderiza un html una vista o regresa un json
+        //maneja las peticiones del request
+        //un controlador es una clase comun y corriente que maneja los metodos del request para los usuarios que se conocen como metodos handler
+        //handler viene de manejar peticion de usuarios con los parametros que envia
+        //procesa el request y devuelve un response  renderiza un html una vista o regresa un json
+        //proporciona acceso a la ligica de negocio
 
 @Controller         
         // es un estereotipo  indica que que un controlador de spring
@@ -31,12 +33,70 @@ Abajo atajos para notener que escribir la sentencia completa
         //es para cualquier peticion url 
 
 
+localhost:8080/api/params/request?code=43234&message=algunmensaje
+
+//pasar parametros get
+@GetMapping("/foo")
+public ParamDto foo(@RequestParam(required = false, defaultValue ="Hola que tal" name = "mensaje") String message){
+
+    //required por default es true y los demas parametros son opcionales
+
+    ParamDto param = new ParamDto();
+    param.setMEssage(message;)
+    return param
+}
+//Varios parametros get
+public ParamMixDto bar(@RequestParam String text, @RequestPAram Integer code)
+
+// injectando HttpServletRequest
+@GetMapping("/request")
+public ParamMixDto request(HttpServletRequest request){
+    ParamaMixDto params = new ParamMixDto();
+    params.setCode(Integer.parseInt(request.getParameter("code")));
+    param.setMessage(request.getParameter("message"));
+    return params; 
+}
+
+
+
+localhost:8080/api/var/mix/mouse/5555
+
+//recibir parametros por url PathVariable
+@GetMapping("baz/{message}")
+public paramDto baz(@PathVariable String message){
+
+}
+
+//recibir varios parametros con PathVariable
+@GetMapping("/mix/{product}/{id}")
+public Map<String, Object> misPAthvar(@PathVariable String product, @PathVariable Long id){
+    Map<String, Object> json = new HashMao<>();
+    json.put("product", product);
+    json.put("id", id);
+
+    return json;
+}
+
+
+
+
 @PostMapping
         //informacion o datos en un formulario que vienen en el cuerpo
+        //@RequestBody  lo utilizamos para recibir los parametros del metodo post
+
+@PostMapping
+public User create(@RequestBody User user){
+    user.setName(user.getName().toUpperCase);
+    return user;
+}
+
+
+
 
 
 @PutMapping
         // para modificar informacion existente
+
 
 @DeleteMapping
         //para borrar
@@ -44,7 +104,7 @@ Abajo atajos para notener que escribir la sentencia completa
 
 @RestController
         //automaticamente convierte el reponse del  metodo handler en REST
-        //combina dos anotaciones @Controller   y @ ResponseBody
+        //combina dos anotaciones @Controller   y @ResponseBody
         //response body por defecto lo que realiza es devolver el contenido como un json gracias a la api jackson
 
 @RequestMapping("/api")
@@ -52,18 +112,113 @@ Abajo atajos para notener que escribir la sentencia completa
 
 
 @Service
+        //se encargan de tener acceso a la base de datos mediante interfaces DAO (data access object)
+        // maneja las transacciones o la logica de negocio
+        //los service interactuan con los repositorios
+        //se hacen calculos, trabaja con otros repositorios, hace consultas
+        //maneja las transacciones
+        //especializacion para servicios de lógica de negocio
+
 
 @Entity
 
-@Respository
+@Repository
+        //DAO data access object  o repository
+        //los repositorios son los que acceden a los datos
+        //es una especializacion para persistencia
+        //componentes que acceden a los datos (DAOs)
+        //traduce las excepciones para que sean mas amistodas
+
+
+@ModelAttribute
+        // Para pasar datos a la vista, el atributo queda disponible globalmente para ser consumido
+
+
 
 @Component 
+        // es  un estereotipo genérico para cualquier componente manejado
+        //por espring
 
-@ModelAttribute("users")  Para pasar datos a la vista, el atributo users queda disponible globalmente para ser consumido
-public List<User> userModel{
-    return Arrays.asList(
-        new User("nombre","Apellido"),
-        new User("nombre","Apellido"),
-        new User("nombre","Apellido"),
-    );
-}
+@Configuration
+        //indica que la clase puede ser utilizada por el contenedor Spring
+        //como una fuente de definicion de beans 
+La clase puede tener varios metodos y estos van a estar anotados con @Bean
+y todo objeto que retornen se van a guardar como componente bean
+
+@Bean
+        //Permite crear objetos y registrarlos en el contenedor de Spring
+        //mediante metodos utilizando en operador new de forma explicita
+
+
+
+@PropertySource
+        //para seleccionar la ruta de las propiedades 
+
+        //archivo config.properties
+        config.price.tax= 1.24
+
+        @Configuration
+        @PropertySource("classpath:config.properties") // nombre del archivo
+        public class AppConfig{
+
+        }
+
+
+        //desde el environment
+        @Autowired
+        private Environment environment
+
+        //llamar desde otro archivo
+        environment.getProperty("config.price.tax". Double.class)
+
+        //con value
+        @Value("${config.price.tax}")
+        private Double tax;
+
+
+
+
+@Primary
+        //indica cual es la interface por defecto cuando existen varias
+
+@Qualifier
+        //para indicar el nombre de la clase que implementa una interfaz
+        //@Qualifier("nombre_del_metodo")
+        //por defecto es el nombre de la clase pero puede personalizarse
+        //selecciona un componente por su nombre 
+        @Repository("productFoo") // nombre que tendria
+
+        @Autowired
+        @Qualifier("productFoo")
+
+
+
+//alcances o contextos 
+@RequestScope
+        // para indicar que el contexto es del request
+        //cada que se ejecuta un request se libera de la memoria
+
+@SessionScope
+        //para indicar que el contexto es de la sesion 
+        //dura varios request hasta que se cierra la ventana del navegador
+
+
+Consulta de jpql al entity
+@Query("select p from Person p where p.apellido1 = ?1 and p.apellido2 = ?2")
+    List<Person> buscarPorApellidos(String apellido1, String apellido2);
+
+
+Pasar parametros
+HttpServeletRequest
+@
+
+
+Pasar parametros en la ruta
+
+redirect y forward para las vistas 
+
+
+
+Spring Dev DevToools
+Spring Data reactive Mongo DB
+spring reactive Web - Web 

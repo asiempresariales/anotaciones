@@ -1,0 +1,293 @@
+
+node -v
+npm -v
+ng version
+
+
+nvm ls-remote
+
+nvm install node
+
+nvm use node
+
+
+npm uninstall -g @angular/cli
+npm install -g @angular/cli@latest
+
+ng update @angular/cli @angular/core
+
+angular schematics 
+
+skipStyle
+external template
+
+enable an set default for this workspace
+confirm
+
+
+ngbuild para construis la aplicacion y se almacena en la carpeta dist
+
+*****************************************************************************
+
+Angulsr permite crear aplicaciones web 
+
+Web
+single paga application 
+
+server side rendering 
+Apliaciones del lado del servidor
+
+static side generetion 
+contenido de manera estatico
+
+Movil Ionic, nativeScript
+
+
+Angular es un framework 
+Tiene todo lo que se necesita
+Gestor de estado enrutamiento
+Reactividad
+peticiones HttpServeletRequest
+directivas
+etc
+
+
+*****************************************************************************
+Bloques fundamentales 
+
+-componentes- representa  una parte de la interfaz del usuario - boton o mas grande 
+-rutas -  permiten cambiar  entre páginas o componentes 
+-directivas - modifican el comportamiento de un elemento html  atributos, estructurales if for - componentes
+-servicios -  encapsulan la logica de negocio y centralizan su acceso 
+-modulos - son para agrupar funcionalidades relacionadas 
+-pipes - transforma la informacion de forma visual para representarlos apropiadamente - modifica como se presentan  los datos
+ordenar y filtrar  optimizacion de rendimiento 
+
+*****************************************************************************
+Tailwindcss
+
+npm install tailwindcss @tailwindcss/postcss postcss --force
+
+en raiz crear file .postcssrc.json
+
+{
+  "plugins": {
+    "@tailwindcss/postcss": {}
+  }
+}
+
+
+
+https://www.creative-tim.com/twcomponents/component/dashboard-navigation
+
+*****************************************************************************
+
+cmmand + shift + p 
+
+JSON as code 
+
+*****************************************************************************
+
+Operadores de RSJX
+PIPE 
+
+nos sirve para encadenar funcionamientos especiales de los observables
+
+
+*****************************************************************************
+
+Tipado propio de tupescrup 
+
+record<string, Gif[]>
+
+tipado para un objeto donde sus llaves son  dinamicas
+
+
+
+*****************************************************************************
+Ejemplos 
+
+
+
+
+*****************************************************************************
+
+
+*****************************************************************************
+
+
+*****************************************************************************
+Local Storange
+*****************************************************************************
+
+
+import { effect, Injectable, signal } from "@angular/core";
+import { Character } from "../interfaces/character.interface";
+
+
+const loadFromLocalStorage = ():Character[]=>{
+  const characters = localStorage.getItem('characters');
+
+  return characters ? JSON.parse(characters): [];
+};
+
+
+@Injectable({ providedIn: 'root'})
+export class DragoballService{
+
+
+  characters = signal<Character[]>(loadFromLocalStorage());
+
+  saveToLocalStorange = effect(()=>{
+    //console.log(`Character count ${this.characters().length}`)
+    localStorage.setItem('characters', JSON.stringify(this.characters()))
+
+  });
+
+  addCharacter(character: Character) {
+
+    this.characters.update((list) => [... list, character])
+
+  }
+
+}
+
+*****************************************************************************
+Peticion http
+*****************************************************************************
+
+
+
+const GIF_KEY = 'gifs';
+const loadFromLocalStorage = ()=>{
+
+  const gifs = localStorage.getItem('GIF_KEY');
+
+  return gifs ? JSON.parse(gifs): {};
+}
+
+@Injectable({providedIn: 'root'})
+export class GifService {
+
+  private http = inject(HttpClient);
+
+  trendingGifs = signal<Gif[]>([]);
+
+  trendingsGifsLoading = signal(true);
+
+  trendingGifGroup = computed<Gif[][]>(()=>{
+    const groups = [];
+    for(let i = 0; i < this.trendingGifs().length; i +=3){
+      groups.push(this.trendingGifs().slice(i, i +3));
+    }
+    return groups;
+  })
+
+
+
+
+
+  searchHistory = signal<Record<string, Gif[]>>(loadFromLocalStorage());
+
+  searchHistoryKeys = computed(()=> Object.keys(this.searchHistory()))
+
+  saveToLocalStorage = effect(()=>{
+
+    localStorage.setItem('GIF_KEY', JSON.stringify(this.searchHistory
+      ()))
+
+  })
+
+
+  constructor(){
+    this.loadTrendingGifs();
+  }
+
+  loadTrendingGifs(){
+
+    this.http.get<GiphyResponse>(`${environment.giphyUrl}/gifs/trending`, {
+      params:{
+        api_key: environment.giphyApiKey,
+        limit: '20',
+      },
+    }).subscribe((resp)=>{
+
+      const gifs = GifMapper.mapGiphyItemsToGifArray(resp.data);
+
+      this.trendingGifs.set(gifs);
+
+      console.log(gifs);
+    });
+
+  }
+
+  searchGifs(query: string): Observable<Gif[]>{
+
+    return this.http.get<GiphyResponse>(`${environment.giphyUrl}/gifs/search`,{
+      params:{
+        api_key: environment.giphyApiKey,
+        limit: '20',
+        q: query
+      },
+    }).pipe(
+      map(({ data }) => data ),
+      map((items) => GifMapper.mapGiphyItemsToGifArray(items)),
+      tap(items => {
+        this.searchHistory.update(history => ({
+          ...history,
+          [query.toLowerCase()]: items,
+
+        }))
+      })
+      );
+  }
+
+
+
+  getHistoryGifs(query: string):Gif[]{
+
+    return this.searchHistory()[query] ?? [];
+
+  }
+
+
+
+
+}
+
+
+
+*****************************************************************************
+For arreglo de arreglo
+*****************************************************************************
+
+
+trendingGifGroup = computed<Gif[][]>(()=>{
+
+    const groups = [];
+    for(let i = 0; i < this.trendingGifs().length; i +=3){
+      groups.push(this.trendingGifs().slice(i, i +3));
+    }
+
+    return groups;
+});
+
+
+
+*****************************************************************************
+div tamaño dinamico 
+*****************************************************************************
+
+div no se desborda el contenido y se limita al tamaño que se le indique
+cualquier cosa que se salga del contenido no se va mostrar 
+
+<div class="h-[400px] bg-red-500 overflow-hidden></div>
+
+// overflow-y-scroll
+
+*****************************************************************************
+
+
+
+
+

@@ -1,0 +1,15 @@
+Observable
+
+Publisher 
+
+Flux - maneja de o a n elementos 
+Flux<String> just = Flux.just("1", "2", "3");
+Colecciones de objeto
+
+
+mono - un stream de 0 o 1 elemento
+Mono<String> just = Flux.just("1")
+un solo objeto 
+
+Transforma y compone flujos con los operadores map, filter, merge, delay, foreach etc
+

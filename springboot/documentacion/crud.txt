@@ -4,3 +4,14 @@ pom.xml
 resource/application.properties
 //para llevar a acabo configuraciones
 
+
+Librerias Spring 
+
+Spring Web
+        //incluye librerias y dependencias web se integra con spring core
+        //build web, incluye RESTFUL, usa MVC
+Springboot devtools
+        //Provee rapidos reinicio a la aplicaciòn , lilvereload
+
+Spring Boot Actuator
+        //soporta built in(or custom) endpoints que permiten monitorear y administrar la aplicacion

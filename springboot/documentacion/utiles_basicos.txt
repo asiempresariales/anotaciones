@@ -1,18 +1,3 @@
-java.util.HashMap;
-java.util.Map
-
-public Map<String, Object> details(){
-
-    Map<String, Object> body = new HashMap<>();
-
-    body.put("clave", "valor");
-    body.put("clave", "valor");
-    body.put("clave", "valor");
-
-return body
-
-}
-
 
 Tipos de datos
 
@@ -381,3 +366,49 @@ public static void main(String[] args) {
     }
     System.out.println(numbers);
   }
+
+
+
+//Crea un arreglo del tipo que le asignemos como generico
+  
+List<String>
+
+//split nos ayuda a convertir en un array algun dato que
+le indicquemos por un separador
+array.split(',')
+
+
+Para realizar el casteo
+Integer.valueOf()
+
+Contar las palabras en un string
+words.split("\\s").length
+
+
+// Convert the string to a char array
+char[] myArray = myStr.toCharArray();
+
+// Print array elements
+for (char i : myArray) {
+  System.out.println(i);
+}
+
+
+
+
+Average - promedio 
+
+avg = sum / length;
+
+
+Even or Odd - Par o inpar 
+if (number % 2 == 0) {
+  System.out.println(number + " is even.");
+} else {
+  System.out.println(number + " is odd.");
+}
+
+Numero ramdom del 1 a l 100 
+int randomNum = (int)(Math.random() * 101); // 0 to 100
+
+java -jar ruta del archivo 

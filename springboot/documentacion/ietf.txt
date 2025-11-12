@@ -1,0 +1,11 @@
+
+Organización encargada de desarrollar y promover estándares técnicos relacionados
+con el funcionamiento de Internet. Su objetivo es mejorar la interoperabilidad y 
+seguridad de las redes mediante la creación de protocolos y 
+estándares como HTTP, TCP/IP, DNS, SMTP y muchos otros.
+
+https://datatracker.ietf.org/
+
+
+El IETF está respaldado por la Internet Society (ISOC) y 
+trabaja en conjunto con otras entidades como el ICANN y el W3C.

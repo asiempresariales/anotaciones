@@ -1,0 +1,47 @@
+var - permite sobrescribir las variables 
+let - no permite sobre escribir las variables, se puede sobrescribir una variables y tiene escope
+const - no permite sobreescribir una variable, tiene scope, arreglos y objetos pueden ser modificados con 
+las propiedades de arrays u objects 
+
+funciones 
+flecha const numero  = (num1, num2) =>{
+    return `el numero es ${num1 + num2}`
+}
+
+${} - permite introducir logica de java escrip
+
+Si la funcion flecha solo recibe un parametro se pueden imitir los parentesis
+si no se realiza mas operaciones que requieran de otro renglon  puede omitirse
+el return 
+
+const numero = (num1, num 2) => `esta es la suma ${num1 + num 2}`
+
+Objetos 
+const mascota = {
+    nombre: 'tom',
+    edad: 10,
+    vivo: true
+    razas:['peludos', 'negro'] 
+}
+
+console.log(mascota.nombre)
+console.log(mascotas.razas[0])
+
+fuera del objeto se pueden agregar atributos con = 
+mascota.id = 1
+
+Destructuring 
+
+const {nombre, edad } = mascotas;
+
+const {enlace, nombre } = web.redesSociales.youtube
+
+
+fetch nos sirve para leer imagenes, archivos json en el sistema
+Leer apis 
+
+fetc('url')
+.then()
+
+Espera una promesa
+Espera que la url devuelva los datos 

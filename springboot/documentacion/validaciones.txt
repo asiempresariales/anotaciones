@@ -1,0 +1,19 @@
+import jakarta.validation.constraints
+
+@NotBlank               //para strings, valida espacios vacios
+@Size(min=3, max=20)
+private String name;
+
+@Min(500)
+@NotNull            //para numeros
+private int price;
+
+@NotEmpty
+private String description;
+
+
+@Pattern        //para expresiones regulares 
+
+
+import org.springframework.util.StringUtils;
+StringUtilsl.hasText(value)

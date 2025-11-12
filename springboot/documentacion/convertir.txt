@@ -1,0 +1,13 @@
+conveertir una lista en un optional
+Optional.of(Lista<Product>)
+
+
+convertir una lista en array
+
+Empleados arrayEmpleados[] = new Empleado[ListaEmpleados.size()]
+
+listaEmpleados.toArray(arrayEmpleados);
+
+
+Convertir de un objeto stream a una lista 
+user.getRoles().stram().map(role-> SimpleGrantedAuthority(role.getNAme())).collect(Collectors.toList())

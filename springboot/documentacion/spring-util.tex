@@ -1,0 +1,269 @@
+Links pruebas locales
+********************************************************************************************************************
+Swanger
+
+http://localhost:8080/swagger-ui/index.html#
+
+********************************************************************************************************************
+Los repositories de spring son interfaces que extienden de JpaRepository
+o de CrudRepository<Product, Long>
+se les pasa el tipo de entidad y el tipo de la llave primaria
+Aunque no se anota la interface con ninguna anotacion, es detectado como un componente de spring
+al extender de JpaRepository o CrudRepository
+
+********************************************************************************************************************
+Los servicios son interfaces que nos indican que metodos se deben implementar
+
+La implementacion de los servicios son clases que deben ir anotadas con @Service
+ademas  son anotados con @Trasactional(readOnly = true) 
+********************************************************************************************************************
+H2 base de datos 
+
+http://localhost:8080/h2-console
+
+spring.datasource.url=jdbc:h2:mem:customer
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=qwerty
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.h2.console.enabled=true
+spring.jpa.show-sql=true
+
+
+
+********************************************************************************************************************
+
+import org.springframework.core.env.Environment;
+
+@Autowired
+    private Environment env;
+
+    @GetMapping("/check")
+    public String check(){
+
+        return "Hola la el valor de l propiedad es"+ env.getProperty("custom.activeprofileName") ;
+
+    }
+
+********************************************************************************************************************
+Ejecutar jar con perfil
+
+java -jar  directorio   --spring..active=dev
+
+
+
+********************************************************************************************************************
+
+
+Java runtime vs code 
+cmd + shift + p
+Java: Configure Java Runtime
+
+********************************************************************************************************************
+ENPAQUETAR jar video 218 
+
+mvnm clean package
+mvnw package
+mvnm clean install es para subir a repositorio
+
+
+./mvnw clean package
+
+
+
+********************************************************************************************************************
+CONFIG SERVER - Servidor de configuracion de propiedades se usa para centralizar las propiedades de los microservicios
+********************************************************************************************************************
+
+en el archivo principal de la aplicacion habilitar la anotacion @EnableConfigServer
+
+@EnableConfigServer
+
+En todos los microservicios se debe agregar el starter de config server
+en todos los microservicios se debe agregar la dependencia de config server
+
+********************************************************************************************************************
+pruba cloud - config server - llamando propiedades desde archivo properties externo
+
+http://localhost:8888/config-server-repo/local
+
+host:puerto/nombre de la carpeta del proyecto/perfil 
+
+
+********************************************************************************************************************
+Para iniciar la aplicacion desde un jar con un perfil especifico
+application-dev.properties es el nombre del archivo de propiedades
+el nombre del archivo es la primer palabra y el perfil es la segunda palabra
+
+java - jar -Dspring.cloud.config.name=application -Dspring.profiles.active=dev spring-boot-config-client-0.0.1-SNAPSHOT.jar
+
+
+
+********************************************************************************************************************
+.uri con variable de entorno 
+spring.cloud.config.uri=${CONFIG_SERVER_URI:http://localhost:8888}
+
+spring.cloud.config.server.git.uri=${CONFIG_SERVER_URI:${user.dir}Documents/udemy/microservicios/caso/config-server-repo}
+
+// Declarar variable de entorno en local 
+export REPOSITORY_PATH=/Users/ascencio/Documents/udemy/microservicios/caso/config-server-repo
+
+ver variables de entorno mac: printenv
+//para pintar la variable 
+echo REPOSITORY_PATH
+
+
+
+********************************************************************************************************************
+EUREKA SERVER - Servidor de registro y descubrimiento de servicios
+********************************************************************************************************************
+
+
+Eureka server
+
+En archivo principal habilitar la anotacion @EnableEurekaServer
+
+@EnableEurekaServer
+
+En todos los microservicios se debe agregar el starter de eureka server
+
+Para eviatr la configuracion de config server.  en el archivo de propiedades se debe agregar la siguiente linea
+spring.cloud.config.enabled=false
+
+********************************************************************************************************************
+Actuator - monitoreo de microservicios
+Permite monitorear los microservicios en tiempo real y obtener informacion de los mismos
+
+http://192.168.100.74:8082/actuator
+http://192.168.100.74:8082/actuator/health
+http://192.168.100.74:8082/actuator/metrics
+
+
+EUREKA REST operation Git con diferentes endpoitns  que se pueden usar para obtener informacion de los microservicios
+
+
+********************************************************************************************************************
+Observabilidad - monitoreo de microservicios
+********************************************************************************************************************
+
+
+Generar microservicio
+usar dependencias:
+
+codecentric`s spring boot admin (server)
+spring web mvc 
+
+nombre proyecto - Artifacto 
+springbootAdmin
+
+clase principal configurar con las siguientes anotaciones 
+
+@Configuration
+@EnableAutoConfiguration
+@EnableAdminServer
+@SpringBootApplication
+
+puort=8062
+
+********************************************************************************************************************
+
+
+Manejo de excepciones en spring boot
+
+@RestControllerAdvice de aplica a la clase para envolver los metodos de la clase
+
+@ExceptionHandler(Exception.class) se usa para manejar excepciones de cualquier tipo
+
+Por parametros se pasa el tipo de excepcion que se quiere manejar 
+
+
+
+********************************************************************************************************************
+
+********************************************************************************************************************
+Transacciones
+********************************************************************************************************************
+
+Saga Orchestarte Pattern
+
+SagaChoreography pattern
+
+
+
+********************************************************************************************************************
+
+********************************************************************************************************************
+spring security
+********************************************************************************************************************
+
+
+CSRF - Cross Site Request Forgery
+Tecnica en la que un atacante intenta suplantar la identidad de un usuario para realizar acciones no autorizadas
+********************************************************************************************************************
+
+CORS - Cross Origin Resource Sharing
+origenes cruzados cuando estan diferentes dominios o puertos
+********************************************************************************************************************
+
+Configuracion basica restrictiva 
+
+starter security
+Tiene configuracion por defecto 
+
+crear package security
+
+crear clase de SecurityConfiguration
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework..security.config.Customizer.withDefaults;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.SecurityFilterChain;
+org.springframework.security.web.SecurityFilterChain;
+
+@EnableWebSecurity
+@Configuration
+public class SecurityConfiguration{
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        
+        http.csrf().disable()   //deshabilitar la proteccion csrf
+            .authorizeRequests()    //cualquier peticion http tiene que estar autenticada 
+            .anyRequest()           //cualquier tipo de peticion
+            .authenticated()        //debe estar autenticada
+            .and()                  // y ademas adicional 
+            .httpBasic(withDefaults())  // debe realizar una autenticacion basica, le pasamos un parametro withdefauls, (que es?) que vamos a utilizar la configuracion de autenticacion  por defecto que nos ofrece  esta configuracion
+            .fomLogin(withDefaults());  // como formulario de login vamos a utilizar la configuracion por defecto que nos ofrece spring security
+        
+        return http.build();
+   
+    }
+
+
+
+
+}
+
+
+********************************************************************************************************************
+importar  desde org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+
+En la clase principal se debe excluir la clase por defecto de seguridad que maneja spring de la siguiente manejar
+(exclude = {SecurityAutoConfiguration.class})
+
+********************************************************************************************************************
+en properties podemos agregar usuario y contraseña para resplazar los que estan por defecto
+
+spring.security.user.name=admin
+spring.security.user.password=qwerty
+
+
+peticion por terminal 
+curl -X 'GET'  -H "Authorization: Basic $(echo -n admin:qwerty | base64)"   'http://localhost:7080/billing'   -H 'accept: */*'
+********************************************************************************************************************
+
+
+
+
+

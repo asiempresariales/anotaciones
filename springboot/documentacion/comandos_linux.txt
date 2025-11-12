@@ -1,0 +1,8 @@
+mkdir config-repository
+
+cd config-repository
+
+git init .
+
+echo info.foo: bar > application.properties
+

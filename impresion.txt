@@ -1,0 +1,654 @@
+
+
+************************************************************************
+
+@Value - nos sirve para inyectar valores que agregamos desde el properties
+
+@Value("${config.username}")
+private String username;
+
+
+//config.listOfValues=hola,que,tal,hoy
+
+@Value("${config.listOfValues}")
+private String[] listOfValues
+
+
+
+
+-------------------------------------------------------------------------------------
+Lenguaje de expresión de java
+Lenguaje de expresion de spring 
+
+Dentro del # java es codigo java
+@Value("#{}")
+
+Anidamos dentro y convetimos en estring al envolverlo en comillas
+y podemos tratarlo como string 
+
+@Value("#{ '${config.listOfValues}'.toUpperCase().split(,) }")
+private List<String> valueList; 
+
+split(,)
+split convierte un string que tiene un separador o un patron en array
+
+
+//config.valuesMap={nombre:'valor', precio:'valor', producto:'valor'}
+
+@Value("#{${config.valuesMap}}")
+private Map<String, Object> valuesMap;
+
+@Value("#{${config.valuesMap}.nombre}")
+private String nombre;
+
+
+-------------------------------------------------------------------------------------
+Para definir de donde queremos tomar las propiedades lo podemos hacer configurando 
+el archivo principal de la aplicacion con la siguiente anotacion 
+
+@PropertySources({
+    @PropertySource(value = "classpath:values.properties", encoding = "UTF-8"),
+    @PropertySource("classpath:values.properties"),
+})
+
+//guardar con encoding Western (Iso 8859-1)
+
+************************************************************************
+
+@Configuration - Clase de configuración nos sirve para generar las configuraciones necesarias
+para el proyecto
+
+se anota con @Configuration
+
+@Configuration 
+public class ValuesConfig{
+
+}
+
+************************************************************************
+
+Environment - springframework.core
+es un been , permite leer los properties 
+
+@Autowired
+private Environment environment
+
+environment.getProperty("config.message") // todo lo devuelve como un String y se debe convertir si es requerido
+
+************************************************************************
+Convertir 
+
+Integer.valueOf(environment.getProperty("config.code")); // de estring convierte a entero
+
+Integer.ParseInt
+
+// getProperty tiene sobrecarga y puede utilizarse de diferentes maneras. Puede ser
+// a cualquier clase List, Map dependiendo el tipo de dato
+
+environment.getProperty("config.code", Long.class)
+
+
+Doble to Long 
+
+Double priceImp = p.getprice() * 1.16;
+priceImp.longValue();
+
+
+stream to list -- .collect(Collectors.toList())
+
+repository.findAll().stream().map(p->{
+
+    Double priceImp = p.getprice() * 1.16;
+    p.setPrice(getpriceImp.longValue());  
+    return p; 
+
+}).collect(Collectors.toList());
+
+
+************************************************************************
+
+Cloneable  implements Cloneable 
+para clonar en la instanciacion de objetos
+
+
+se sobre escribe el metodo 
+@Override
+public Object clone(){
+    try{
+        return super.clone();
+
+    }catch(ClonenotSupportedException e ){
+
+    }
+}
+
+//devuelve un objeto y donde se instancea se debe realizar el cast
+
+Product newProduct = (Product) p.clone();
+
+
+
+************************************************************************
+
+List
+
+
+List<User> users = Arrays.asList(
+    new User ("Nombre", "Apellido"),
+    new User ("Nombre", "Apellido"),
+    
+)
+
+Arrays
+String[]
+
+
+************************************************************************
+
+Map
+
+Public Map<String, Object> valor(){
+
+    Map<String, Object> json = new HashMap<>();
+    json.put("username", username);
+    json.put("code", code);
+    json.put("listOfValues", listOfValues)
+
+
+}
+
+************************************************************************
+stream
+filter devulvel un stream 
+findFirst devuelve un optional 
+orElseThrow nos devuelve el objeto o una excepción 
+data.stream().filter(p -> p.getId().equals(id))             // devuelve un stream con los elementos encontrados
+             .findFirst()       //devuelve un optional para evitar un null pointer exeption
+             .orElse(null)      // o devuelve null
+
+
+//itera sobre todos los datos y permite modificar 
+repository.findAll().stream().map(p->{
+    Double priceImp = p.getprice() * 1.16;
+    p.setPrice(getpriceImp.longValue());  
+    return p;      // estp devuelve un strem
+}).collect(Collectors.toList());
+
+************************************************************************
+
+
+ResponseEntity
+
+ResponseEntity.ok(userOptional.orElseThrow());
+ResponseEntity.status(HttpStatus.OK).body(userOptional.orElseThr
+
+ResponseEntity.badRequest().build();
+ResponseEntity.status(404).body(Collections.singletonMap("error", "el usuario no se encontro por el id" + id));
+ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("error", "el usuario no se encontro por el id" + id));
+
+ResponseEntity.noContent().build();1
+
+
+
+
+***************************************************************************
+Redirect
+
+redirect genera una nueva peticion a una nueva ruta url
+se pierden los paramatros del request debido a que se actualiza la peticion
+Cambia la ruta url, reinica el request y refresca el navegador
+
+
+@GetMapping({"", "/", "/home"}){
+    public String home(){
+        return "redirect:/details";
+    }
+}
+
+
+
+Forward
+para redirigir de un servlet a otro servlet - jcp a jcp 
+request.get.RequestDispatcher("/details").forward(request, response)
+
+Se mantiene dentro de la misma peticion  http y no pierde los parametros
+que se tienen dentro de un request, tampoco cambia la ruta url
+ya quen o hace un refresh, sino que despacha a otra accion del controlador 
+pero sin recargar la pagina
+
+
+@GetMapping({"", "/", "/home"}){
+    public String home(){
+        return "forward:/details";
+    }
+}
+
+
+***************************************************************************
+
+despliegue y ejecucion desde terminal 
+
+springboot trae maven no es necesario instalarlo
+
+mvnm            usuario linux
+mvnw.cmd        usuarios windows
+
+
+./mvnw install              //para instalarlo en el repositorio local -
+./mvnw clean package        //para enpaquetarlo que es lo mas comun
+                            //clean para limpiar el target en caso que otro este generado
+./mvnw clean                // elimina lo de la carpeta target
+
+
+Se genera dentro de la carpeta target 
+El pom del proyecto debe contener la misma version de java
+que se configuro en el homePath y debe apuntar siempre a la misma version 
+
+java -version
+javac -version 
+
+
+cuando se genera un clean desde visual genera un error por lo que
+desde pestaña maven
+hay que generar un refresh 
+
+
+
+***************************************************************************
+
+Levantar el proyecto
+Acceder la carpeta target y ejecutar: 
+
+java -jar ./nombre o ruta del archivo.jar
+
+
+
+***************************************************************************
+@Configuration indica que puede ser utilizada la clase como contenedor de 
+de Spring como una fuente de definicion de beans
+
+@Configuration 
+
+public class AppConfig{
+
+    @Bean
+    public IUsuarioServic registrarUsuario(){
+        return new USuarioServiceImpl();
+    }
+
+
+}
+
+los metodos registrados bajo el estereotipo bean son registrados como componentes 
+en el contenedor de spring 
+
+
+es equivalente a tener una clase anotada con @Component
+
+
+***************************************************************************
+@Primary
+Cuando tenemos dos implementaciones de un mismo servicio hay que indicar cual
+deberia tomar como primario el controlador que lo  inyectara 
+
+@Primary
+@Repository
+public class ProductRepositoryImpl implements ProductRepository{
+
+} 
+
+
+***************************************************************************
+Seleccionador - Calificador
+
+@Qualifier indica a que clase hace referencia la inyeccion que se esta realizando
+El nombre que se indica es el nombre de la clase que hace la implementación
+
+la manera de aplicarlo es sobre el constructor
+
+@Service 
+public class ProductServiceImpl implements ProductService{
+
+    private ProductRepository repository;
+
+    public ProductServiceImpl(@Qualifier("productRepositoryImpl") ProductRepository repository){
+
+        this.repository = repository;
+
+
+
+    }
+
+
+
+
+}
+
+Si se quiere cambiar por el nombre para que no tome el de la clase se agrega desde la
+anotacion que tenga la clase de la siguiente manera
+
+@Repository("nombreCambio")  //clase
+--------------------------
+
+//donde inyecto con @Qualifier
+
+@Qualifier("nombreCambio")
+
+
+Cuando se inyecta por el atributo se agrega la anotacion @Qualifier en el atributo
+ademas de agragar el Autowired
+
+
+@Autowired
+@Qualifier("nombreCambio")
+private ProductRepository repository; 
+
+
+
+
+
+
+
+***************************************************************************
+Peticion con scope del request
+
+@RequestScope  -  le indicamos que el contexto es del request 
+Indica que el ciclo de vida del componente que se manda llamar solo exitira
+durante el reques o petición que se realice 
+
+
+@RequestScope la anotacion se indica arriba de las clases
+@Repository
+public class product{
+
+}
+
+
+***************************************************************************
+
+@SesionScope   -  le indicamos que el contexto es de la sesion 
+indica que el ciclo de vida del componente que se manda llamar sera durante la
+sesion activa del navgador 
+
+@SesionScope la anotacion se indica arriba de las clases
+@Repository
+public class product{
+
+}
+
+
+***************************************************************************
+@Configuration 
+
+Crear componentes a partir de clases que no son nuestras o que vienen desde un api 
+Para crear bean que no implementamos
+
+
+***************************************************************************
+
+Para leer un recurso que se encuentra en la carpeta /resources
+Utilizamos ClassPAthResourcce importando desde springframework.core.io
+
+ClasspathResource resource = new ClassPAthResource("product.json")
+
+ClassPathResource extiende de una clase que a su vez extiende de otra y que finalmente
+implementa la clase Resource por lo que tambien se puede declarar de la siguiente manera 
+
+
+***************************************************************************
+
+ObjectMapper importar de fasterxml.jacson.databind.ObjectMapper
+api para trabajar con api rest 
+
+Permite comvertir un archivo un file o un input stream en object de java 
+
+private List list;
+public ProductList(){
+
+    ClasspathResource resource = new ClassPAthResource("json/product.json")
+
+    ObjectMapper objectMapper = new ObjectMapper();
+
+try{
+
+    list = Arrays.asList(objectMapper.readValue(resource.getFile), Product[].class); 
+    // el tipo de dato que se quiere obtener de la lista que proviene de json 
+
+}catch(){
+
+}
+
+}
+se usa try catch por si no existe el archivo o si no lo puede leer 
+
+Array.asList() Toma como argumento un arreglo, puede ser un arreglo de objetos
+convierte un array en una lista 
+el arreglo que se le pasa es el resultado de parsear o leer el archivo json  
+resource nos permite obtener el archivo
+objectMapper.readValue puede leer un tipo file o inputStream
+resource permite obtener el file o diferentes tipos de datos 
+getPath
+getInputStream
+getURL
+
+ClassPathResource implementa la interfaz Resource por lo que se puede cambiar
+
+Resource  resource = new ClassPAthResource("json/product.json")
+
+Resource se importa de springframework.core.io
+
+
+
+***************************************************************************
+
+
+inyectar un bean desde clase configuracion 
+
+@Configuration
+public class AppConfig{
+
+// cuando esta anotado con bean se puede omitir 
+    @Bean
+    ProductRepository productRepositoryJson(){
+        return new ProductRepositoryJson();
+    }
+}
+
+
+// cuando no se le asigna un nombre al @Bean toma por defecto el nombre
+// del metodo 
+//@Qualifier para señalar a que componente nos referimos al inyectar 
+
+
+
+
+***************************************************************************
+Dentro de un value de puede mandar llamar a un archivo de forma declarativa 
+Pero necesita ser un componente para que sea valido 
+
+@Value("classpath:json/product.json")
+private Resource resource;
+
+Pero esto debe ir en la clase de configuracion y pasarlo como atributo en el constructor 
+donde se instancia el objeto
+
+@Configuration 
+public class AppConfig{
+
+    @Value("classpath:json/product.json")
+    private Resource resource;
+
+    @Bean("productJson")// nombre del bean 
+    productRepository productRepositoryJson(){
+        return new ProductRepositoryJson();
+    }
+
+}
+
+ se importa desde 
+springframework.beans.factory.annotation.Value;
+springframework.context.annotation.Bean
+springframework.context.annotation.Configuration
+springframework.context.annotation.PropertySource
+springframework.core.io.Resource;
+
+*********************************************************************************
+La api jackson se encarga de convertir los objetos a un json 
+
+
+
+*********************************************************************************
+@PostConstruct 
+lleva a cabo las acciones hasta despues de que se inicializa el constructor
+
+
+@PostConstruct
+public void init (){
+    System.out.println("creando el compinent de la factura");
+    client.setname()client.getName().concat(" Nombre");
+    description = description.concat(" cliente: ").concat(client.getName()).concat(" ").concat(client.getLastname);
+}
+
+
+Concat siempre crea una nueva instancia no modifica la descripcion original  por eso se
+debe asignar a la variable nuevamente 
+*********************************************************************************
+
+
+
+@PreDestroy
+Lo ocupamos cuando se destruye la instancia
+En singleton es hasta que se baja el servicio de destruye 
+y ahi es donde se realiza una acción bajar una tarea elimnar datos de una db
+cerrar una conexion 
+
+
+@PreDestroy
+public void destroy(){
+    sistem.out.println("Destruyendo el componente o bean invoice ");
+}
+
+
+
+No serializer found
+fail on empty beans 
+@JsonIgnoreProperties({"targetSource", "advisors"})
+
+
+@ApplicationScope es compartido por todos los usuario es parecido a singleton 
+Cuando se tienen varias aplicaciones 
+
+
+
+*********************************************************************************
+
+@Embeddble permite crear otra clase con las cinfiguraciones que se cree  son 
+repetitivas para hacer usa de ellas en los entitis 
+
+@Embeddable
+public class Audit {
+
+Metodo y atributos comunes que queremos compartur 
+
+}
+
+
+// desde el entity 
+//se debe inyectar de esta manera 
+
+@Embedded
+private Audit audit = new Audit(); 
+
+
+
+*********************************************************************************
+
+Las anotaciones siguiente son para llevar acabo acciondes antes de persistit 
+o cuando se realiza una actualizacio 
+
+
+@PrePersist
+
+
+
+@PreUpdate
+
+
+
+*********************************************************************************
+JPA  Relaciones 
+*********************************************************************************
+
+Cardilanlidades 
+
+
+*********************************************************************************
+
+@ManyToOne - como referencia la primer palabra hace referencia a la clase 
+
+Muchas facturas un cliente 
+
+@ManyToOne
+private Client client; 
+
+Por default la tabla Invoices será la duela de la relación 
+y esta contendra la foreignkey del cliente
+
+por defecto toma la convención de nombre y despues la configuración que aplique 
+en este caso llama client_id a la columna donde se crea la relacion 
+
+
+
+*********************************************************************************
+
+
+
+
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+
+
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+
+
+
+
+
+
+
+*********************************************************************************
+
+*********************************************************************************
+
+
+
+
+
+
+
+
+*********************************************************************************
+
+*********************************************************************************
+
+
+
+
+
+
+
+
+
+
+

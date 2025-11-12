@@ -1,0 +1,47 @@
+Recursividad 
+
+
+Caso base cuando yo se el resultado, tu sabes la respuesta directamente 
+
+
+Caso recursivo mientras que la condicion base no se cumpla
+
+
+
+
+
+contar cuantos numero tiene un numero 5439
+
+public int contarDigitos(){
+
+    if(numero<10){
+        return 1;
+    }else{
+        numero = numero/10;
+        return 1+ contarDigitos(int numeros)
+    }
+}
+
+factorial de un numero
+n*f(n-1)
+
+public int calcularFactorial(int numero){
+
+    if(numero == 0 || numero == 1){
+        return 1;
+    }else{
+        return numero * calcularFactorial(numero-1);
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+

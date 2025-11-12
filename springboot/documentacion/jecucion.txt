@@ -1,0 +1,4 @@
+
+
+//ejecutar el jar 
+java -jar ubicacion del archivo jar 

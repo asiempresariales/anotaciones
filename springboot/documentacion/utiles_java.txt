@@ -1,0 +1,113 @@
+
+
+//java.util.HashMap;
+//java.util.Map
+
+public Map<String, Object> details(){
+
+    Map<String, Object> body = new HashMap<>();
+
+    body.put("clave", "valor");
+    body.put("clave", "valor");
+    body.put("clave", "valor");
+
+return body
+
+}
+
+List es un listado que se introduce en un array
+
+List Normal 
+public List<User> list(){
+    User user = new User("Andres", "Guzman");
+    User user2 = new User("Andres", "Guzman");
+    User user3 = new User("Andres", "Guzman");
+
+    List<User> users = new ArrayList();
+    user.add(user);
+    user.add(user2);
+    user.add(user3);
+
+}
+
+List reducido
+
+List<User> users = Arrays.asList(user, user2, user3);
+
+
+stream() de java 8
+public Product findById(Long id){
+    return data.stream().filter(p-> p.getId().equals(id)).findFirst().orElse();;
+}
+
+@ModelAttribute("users")  Para pasar datos a la vista, el atributo users queda disponible globalmente para ser consumido
+public List<User> userModel{
+    return Arrays.asList(
+        new User("nombre","Apellido"),
+        new User("nombre","Apellido"),
+        new User("nombre","Apellido"),
+    );
+}
+
+
+
+DTO  - Data transfer object 
+Es un objeto de transferencia de datos 
+
+
+thymeleaf
+<table th:if="${not users.isEmpty()}">
+
+    <tr th:each="user: ${users}" >
+        <td th:text="${user.name}"></td>
+    </tr>
+
+</table>
+
+
+
+
+import jakarta.servlet.http.HttpServletRequest
+HttpServletRequest
+Objeto nativo que es donde se extraen los parametros
+Todo lo relacionado al request
+Las cabeceras
+Las sesiones
+
+
+
+
+
+java.util.stream.Collectors
+
+Convertir un stream a una lista(array)
+
+repository.findAll().stream().map(p->
+    Double priceImp = p.getPrice() * 1.25d;
+    p.setPrice(priceImp.LongValue());
+    return p;
+)
+.collect(Collectors.toList());
+
+
+
+//crear una lista singleton 
+java.util.Collections;
+java.util.List;
+Collections.singletonList(new Product(1L "Monitor asus" 27", 600L));
+
+
+
+Dentro del constructor se puebla el list
+ObjectMapper
+        // permite convertir un archivo , input stream a un archivo de java
+
+//permite obtener un archivo desde la carpeta de resoruces 
+//import org.springframework.core.io.Resource
+
+Resource resource = new ClassPathResource("json/product.json");
+
+ObjectMapper objectMapper = new ObjectMapper();
+
+private List<Product> list; 
+List = Arrays.asList(objectMapper.readValue(resource.getFile(), Product[].class))

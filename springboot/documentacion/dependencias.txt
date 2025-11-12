@@ -1,0 +1,137 @@
+
+
+>add starters 
+
+************************************************************************************
+Spring Web web
+
+Construir una web, incluye resrful, aplicaciones que usan spring MVC - API - RESTFUL  - Apache emmbed
+
+************************************************************************************
+Spring Boot DevToools developersTools
+
+provee reinicios rapidos en la aplicacion, recarga en vivo, y configuraciones para
+una experiencia de desarrollo mejorada
+
+************************************************************************************
+MySql Driver
+
+Spring Data JPA
+PErsistencia de datos en tiendas de SQL  con Java Persistence API usando
+Spring Data e Hibernate
+
+************************************************************************************
+Validation I/O
+Validaciones Bean con Hibernate validator 
+
+************************************************************************************
+Spring Security Security
+Marco de autenticación y control de acceso altamente personalizable para aplicaciones Spring.
+
+
+************************************************************************************
+Loombook
+geter y setters contructores 
+
+************************************************************************************
+Cloud Bootstrap - Spring cloud 
+spring cloud 
+
+************************************************************************************
+Open Feign - spring cloud routing  
+
+************************************************************************************
+Spring Reactive web - web 
+webflux 
+
+
+************************************************************************************
+ConfigServer
+
+Para generar un micro servicio que sea un servidor de configuraciones 
+
+
+************************************************************************************
+Reactive gateway - Spring Cloud Routing    mas rapido
+
+
+
+************************************************************************************
+Gateway - Spring cloud     compatibilidad con servelet 
+
+
+
+************************************************************************************
+cloud loadBalancer -  spring cloud routing 
+
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
+		</dependency>
+
+
+************************************************************************************
+Resilience4j  - Spring Cloud Circuit Braker 
+Tolerancia  fallos 
+spring-cloud-starter-circuitbreaker-resilience4j
+
+
+
+para gateway
+spring-cloud-starter-circuitbreaker-rector-resilience4j
+
+
+************************************************************************************
+aop programacion orientada a aespectos 
+spring-boot-starter-aop
+
+
+************************************************************************************
+Observabilidad
+************************************************************************************
+
+admin 
+
+codecentric`s spring boot admin (server)
+
+
+codecentric`s spring boot admin (client)
+
+
+
+**********************************************************************************
+cedecentric
+
+springbootAdmin
+
+spring web mvc 
+
+
+
+************************************************************************************
+nueva instancia ./mvnw spring-boot:run 
+
+        .vscode launch.json
+
+        
+        {
+            "type": "java",
+            "name": "Spring Boot-MsvcProductsApplication<msvc-products> 9001",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.kike.springcloud.msvc.products.msvc_products.MsvcProductsApplication",
+            "projectName": "msvc-products",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": "-Dserver.port=9001"
+        }
+
+
+
+************************************************************************************
+Comunicacion entre microservicios
+Rest Template
+
+Feing
+OpenFeing SpringCloudRouting 
